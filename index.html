@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>พี่ปอมอยากบอกว่า</title>
     <style>
-        /* สไตล์พื้นหลังกระดาษขาว */
         body {
-            background-color: #ffffff; /* กระดาษขาว */
-            color: #1f2328; /* สีข้อความเข้ม */
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1f2328;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,55 +17,41 @@
             padding: 20px;
         }
 
-        /* คอนเทนเนอร์หลัก */
-        .content-container {
+        .card {
             text-align: center;
             max-width: 400px;
-            padding: 30px;
-            border: 1px solid #d0d7de; /* เส้นขอบบางๆ เหมือนขอบกระดาษ */
+            width: 100%;
+            padding: 36px 24px;
+            border: 1px solid #d0d7de;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* เงาบางๆ */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* สไตล์คำว่า "พี่ปอมอยากบอกว่า" (คลิกได้) */
         .title {
-            color: #0969da; /* สีน้ำเงินสไตล์ GitHub */
+            color: #0969da;
             font-size: 1.5rem;
             margin: 0;
             cursor: pointer;
-            text-decoration: none;
-            transition: color 0.2s ease, transform 0.1s ease;
             font-weight: bold;
             display: inline-block;
+            transition: transform 0.1s ease;
         }
 
         .title:hover {
-            color: #0a58ca;
-            transform: scale(1.05); /* ย่อขยายเวลาโฮเวอร์ */
+            transform: scale(1.03);
             text-decoration: underline;
         }
 
-        /* สไตล์ข้อความเต็ม (เริ่มต้นซ่อน) */
-        #main-message {
-            display: none;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-top: 25px;
+        .sorry-text {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #24292f;
+            margin-bottom: 24px;
         }
 
-        #p-quote {
-            color: #57606a;
-            border-left: 3px solid #d0d7de;
-            padding-left: 10px;
-            margin-left: 10px;
-            display: inline-block;
-        }
-
-        /* สไตล์ปุ่มหรือคำ "去 weiter" (ไปต่อ) */
-        .btn-continue {
-            margin-top: 30px;
+        .btn-action {
             padding: 10px 20px;
-            background-color: #0969da; /* สีน้ำเงิน */
+            background-color: #0969da;
             color: white;
             border: none;
             border-radius: 6px;
@@ -75,34 +60,58 @@
             transition: background-color 0.2s ease;
         }
 
-        .btn-continue:hover {
+        .btn-action:hover {
             background-color: #0a58ca;
+        }
+
+        .details-text {
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #57606a;
+            margin: 20px 0 28px 0;
+            background-color: #f6f8fa;
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="content-container">
-        <!-- หน้าเริ่มต้น: มีแค่คำว่า "พี่ปอมอยากบอกว่า" และคลิกได้ -->
-        <div id="initial-screen">
-            <h1 class="title" onclick="showNextMessage()">พี่ปอมอยากบอกว่า</h1>
+    <div class="card">
+        <!-- ขั้นที่ 1: มีแค่คำว่า "พี่ปอมอยากบอกว่า" -->
+        <div id="step-1">
+            <h1 class="title" onclick="goToStep(2)">พี่ปอมอยากบอกว่า</h1>
         </div>
 
-        <!-- หน้าถัดไป: ข้อความเต็ม (เริ่มต้นซ่อน) -->
-        <div id="main-message">
-            <p id="p-quote">ไม่ว่าจะเหนื่อยหรือเจอเรื่องหนักแค่ไหน เก่งมากแล้วที่ผ่านมันมาได้ พักผ่อนเยอะๆ นะครับ!</p>
-            <p>💖 อย่าลืมใจดีกับตัวเองนะ</p>
-            <!-- ปุ่ม "ไปต่อ" -->
-            <button class="btn-continue" onclick="alert('... (คุณได้ไปต่อแล้ว!)')">... (ไปต่อ)</button>
+        <!-- ขั้นที่ 2: แสดงคำว่า "พี่ขอโทษ" พร้อมปุ่มกดไปต่อ -->
+        <div id="step-2" class="hidden">
+            <div class="sorry-text">พี่ขอโทษ</div>
+            <button class="btn-action" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
+        </div>
+
+        <!-- ขั้นที่ 3: แสดงเรื่องที่รู้สึกผิด (แก้ไขข้อความด้านล่างนี้ได้) -->
+        <div id="step-3" class="hidden">
+            <div class="sorry-text">เรื่องที่พี่รู้สึกผิด...</div>
+            <div class="details-text">
+                • ขอโทษที่บางครั้งอาจจะไม่ได้ใส่ใจความรู้สึกเท่าที่ควร<br>
+                • ขอโทษที่ทำให้คิดมากหรืออารมณ์เสียใส่<br>
+                • ขอโทษสำหรับทุกๆ เรื่องที่ทำให้ไม่สบายใจนะ
+            </div>
+            <button class="btn-action" onclick="alert('ขอบคุณที่เปิดอ่านจนจบนะครับ 💖')">... (ไปต่อ)</button>
         </div>
     </div>
 
     <script>
-        // ฟังก์ชันเพื่อสลับข้อความ
-        function showNextMessage() {
-            // ซ่อนหน้าเริ่มต้น
-            document.getElementById('initial-screen').style.display = 'none';
-            // แสดงหน้าข้อความเต็ม
-            document.getElementById('main-message').style.display = 'block';
+        function goToStep(stepNumber) {
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+
+            document.getElementById('step-' + stepNumber).classList.remove('hidden');
         }
     </script>
 </body>
