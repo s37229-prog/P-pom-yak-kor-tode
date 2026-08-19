@@ -144,12 +144,15 @@
             <h1 class="title" onclick="goToStep(2)">พี่ปอมอยากบอกว่า</h1>
         </div>
 
-        <!-- ขั้นที่ 2: พี่ขอโทษ -->
+        <!-- ขั้นที่ 2: พี่ขอโทษ (เพิ่มปุ่มย้อนกลับไปหน้าแรก) -->
         <div id="step-2" class="step-container hidden">
             <div class="sorry-text">พี่ขอโทษ</div>
             <div class="button-group">
                 <button class="btn-action" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
                 <button class="btn-action" onclick="goToStep(5)">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ</button>
+            </div>
+            <div class="button-group" style="margin-top: 16px;">
+                <button class="btn-secondary" onclick="goToStep(1)">ย้อนกลับ</button>
             </div>
         </div>
 
