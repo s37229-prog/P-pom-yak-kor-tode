@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>พี่ปอมอยากบอกว่า</title>
-    <!-- โหลดฟอนต์ Kanit จาก Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -16,7 +15,6 @@
         }
 
         body {
-            /* พื้นหลังไล่เฉดสีพาสเทลละมุน */
             background: linear-gradient(135deg, #fef9d7 0%, #d2e7ff 100%);
             color: #2c3e50;
             display: flex;
@@ -28,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* การ์ดสไตล์กระจกฝ้าโปร่งแสง (Glassmorphism) */
         .card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
@@ -52,7 +49,6 @@
             animation: fadeInSlide 0.5s ease-in-out forwards;
         }
 
-        /* เอฟเฟกต์ค่อยๆ แสดงเมื่อเปลี่ยนหน้า */
         @keyframes fadeInSlide {
             from {
                 opacity: 0;
@@ -64,7 +60,6 @@
             }
         }
 
-        /* ชื่อเรื่องหน้าแรก */
         .title {
             color: #4a6fa5;
             font-size: 2.2rem;
@@ -94,7 +89,6 @@
             line-height: 1.3;
         }
 
-        /* กล่องเนื้อหาข้อความ */
         .details-text {
             width: 100%;
             text-align: left;
@@ -127,7 +121,6 @@
             width: 100%;
         }
 
-        /* ปุ่มหลักทรงแคปซูล */
         .btn-action {
             padding: 12px 28px;
             background: linear-gradient(135deg, #5b86e5 0%, #36d1dc 100%);
@@ -146,7 +139,6 @@
             transform: translateY(-2px);
         }
 
-        /* ปุ่มย้อนกลับ */
         .btn-secondary {
             padding: 12px 28px;
             background-color: #ffffff;
@@ -167,16 +159,43 @@
             transform: translateY(-1px);
         }
 
+        /* ปุ่มควบคุมเพลงมุมขวาบน */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+        }
+
         .hidden {
             display: none !important;
         }
     </style>
 </head>
 <body>
+
+    <!-- เล่นเพลงวนซ้ำ (เปลี่ยนชื่อไฟล์เพลงตรง src="song.mp3") -->
+    <audio id="bgm" src="https://open.spotify.com/track/22Hss9mYx32zL6UHhl0kYq?si=9cd8360511f44b2d" loop></audio>
+
+    <!-- ปุ่มเปิด/ปิดเพลงมุมขวาบน -->
+    <button class="music-btn" onclick="toggleMusic()">🎵 เปิด/ปิดเพลง</button>
+
     <div class="card">
-        <!-- ขั้นที่ 1: หน้าแรก -->
+        <!-- ขั้นที่ 1: หน้าแรก (เมื่อกดจะเริ่มเล่นเพลงทันที) -->
         <div id="step-1" class="step-container">
-            <h1 class="title" onclick="goToStep(2)">✨ พี่ปอมอยากบอกว่า ✨</h1>
+            <h1 class="title" onclick="startExperience()">✨ พี่ปอมอยากบอกว่า ✨</h1>
         </div>
 
         <!-- ขั้นที่ 2: พี่ขอโทษ -->
@@ -193,7 +212,7 @@
 
         <!-- ขั้นที่ 3: เรื่องที่พี่รู้สึกผิด -->
         <div id="step-3" class="step-container hidden">
-            <div class="sorry-text">เรื่องที่พี่รู้สึกผิด...😔</div>
+            <div class="sorry-text">เรื่องที่พี่รู้สึกผิด...</div>
             <div class="details-text">
                 <p>1. ขอโทษที่วันนั้นพี่พิมพ์ไปว่าพี่คิดถึงน้อง ส่วนตัวสำหรับพี่ก็คิดว่าพี่รีบไปเอง ในความรู้สึกของพี่ไม่ได้รีบพี่ก็อยากจะคุยกับน้องเพราะพี่ก็ชอบ พี่ก็อยากลองคุยดูด้วย ให้พี่คุยนานพี่ก็คุยได้ ถ้าไปด้วยกันไม่ได้จริงๆ ก็พร้อมที่จะทำใจ</p>
                 <p>2. ขอโทษที่พี่อาจจะทักบ่อยในบางครั้ง เพราะพี่ก็อยากจะคุยกับน้อง พี่จัดการเวลาเรียนของตัวเองให้มีเวลาได้คุยกับน้องบ้าง</p>
@@ -208,9 +227,9 @@
 
         <!-- ขั้นที่ 5: สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ -->
         <div id="step-5" class="step-container hidden">
-            <div class="sorry-text">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ...😔</div>
+            <div class="sorry-text">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ...</div>
             <div class="details-text">
-                <p>• พี่ไม่ค่อยสบายใจที่น้องไม่ได้คุยกับพี่แบบช่วงแรก และพี่ก็ไม่ค่อยสบายใจที่พี่พิมพ์แบบนั้นแล้วน้องอาจจะมองพี่เปลี่ยนไป พี่ไม่อยากให้น้องคิดว่าพี่เป็นพวกฟีลอาหวัง หรือแบบแค่อยากมาคุยกับน้องเฉยๆ😔</p>
+                <p>• พี่ไม่ค่อยสบายใจที่น้องไม่ได้คุยกับพี่แบบช่วงแรก และพี่ก็ไม่ค่อยสบายใจที่พี่พิมพ์แบบนั้นแล้วน้องอาจจะมองพี่เปลี่ยนไป พี่ไม่อยากให้น้องคิดว่าพี่เป็นพวกฟีลอาหวัง หรือแบบแค่อยากมาคุยกับน้องเฉยๆ</p>
             </div>
             <div class="button-group">
                 <button class="btn-secondary" onclick="goToStep(2)">ย้อนกลับ</button>
@@ -221,7 +240,7 @@
         <!-- ขั้นที่ 4: หน้าสุดท้าย -->
         <div id="step-4" class="step-container hidden">
             <div class="sorry-text">ขอบคุณที่เปิดอ่านจนจบนะ 💖</div>
-            <p style="color: #718096; margin-bottom: 28px; font-size: 1.05rem;">ถึงเว็บนี้พี่อาจจะไม่ได้ทำขึ้นมาเองทั้งหมดให้เพื่อนช่วยบ้างแต่พี่ตั้งใจทำให้น้องอ่านจริงๆ😔😔</p>
+            <p style="color: #718096; margin-bottom: 28px; font-size: 1.05rem;">พี่ตั้งใจเขียนขึ้นมาจริงๆ นะครับ</p>
             <div class="button-group">
                 <button class="btn-secondary" onclick="goToStep(2)">← ย้อนกลับไปเลือกหัวข้อ</button>
             </div>
@@ -229,6 +248,22 @@
     </div>
 
     <script>
+        const audio = document.getElementById('bgm');
+
+        function startExperience() {
+            // เล่นเพลงทันทีที่กดเข้าหน้าแรก
+            audio.play().catch(e => console.log("Audio play deferred:", e));
+            goToStep(2);
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+
         function goToStep(stepNumber) {
             document.getElementById('step-1').classList.add('hidden');
             document.getElementById('step-2').classList.add('hidden');
