@@ -17,7 +17,6 @@
             padding: 20px;
         }
 
-        /* ขยายกรอบให้กว้างขึ้นแนวนอน */
         .card {
             text-align: center;
             max-width: 700px;
@@ -70,11 +69,11 @@
             margin-bottom: 0;
         }
 
-        /* กลุ่มปุ่มกด */
         .button-group {
             display: flex;
             justify-content: center;
             gap: 12px;
+            flex-wrap: wrap;
         }
 
         .btn-action {
@@ -119,13 +118,16 @@
             <h1 class="title" onclick="goToStep(2)">พี่ปอมอยากบอกว่า</h1>
         </div>
 
-        <!-- ขั้นที่ 2: พี่ขอโทษ -->
+        <!-- ขั้นที่ 2: พี่ขอโทษ (เพิ่มเป็น 2 ปุ่มเลือกหัวข้อ) -->
         <div id="step-2" class="hidden">
             <div class="sorry-text">พี่ขอโทษ</div>
-            <button class="btn-action" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
+            <div class="button-group">
+                <button class="btn-action" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
+                <button class="btn-action" onclick="goToStep(5)">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ</button>
+            </div>
         </div>
 
-        <!-- ขั้นที่ 3: เรื่องที่พี่รู้สึกผิด (เรียงแนวนอน) -->
+        <!-- ขั้นที่ 3: เรื่องที่พี่รู้สึกผิด (เพิ่มปุ่มย้อนกลับ) -->
         <div id="step-3" class="hidden">
             <div class="sorry-text">เรื่องที่พี่รู้สึกผิด...</div>
             <div class="details-text">
@@ -134,15 +136,30 @@
                 <p>• และก็พี่ก็ขอโทษที่ไม่ได้ทักหาเองหรือบอกเองว่าพี่ทำไรอยู่ อยู่ไหน พี่ไม่ค่อยได้จับโทรศัพท์บ้างเพราะพี่ไม่ค่อยได้คุยกับใครในเชิงอยากพัฒนาความสัมพันธ์แบบเองมานานอาจจะไม่ถูกใจเองบ้าง</p>
                 <p>• พี่ขอโทษทุกอย่างที่พี่ทำเองไม่พอใจหรืออาจจะทำให้ไม่อยากคุยกับพี่</p>
             </div>
-            <button class="btn-action" onclick="goToStep(4)">... (ไปต่อ)</button>
+            <div class="button-group">
+                <button class="btn-secondary" onclick="goToStep(2)">← ย้อนกลับ</button>
+                <button class="btn-action" onclick="goToStep(4)">... (ไปต่อ)</button>
+            </div>
         </div>
 
-        <!-- ขั้นที่ 4: หน้าถัดไป พร้อมปุ่มย้อนกลับ -->
+        <!-- ขั้นที่ 5: สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ (สามารถแก้ไขข้อความด้านในได้) -->
+        <div id="step-5" class="hidden">
+            <div class="sorry-text">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ...</div>
+            <div class="details-text">
+                <p>• (แก้ไขพิมพ์ข้อความเกี่ยวกับสิ่งที่รู้สึกไม่สบายใจตรงนี้ได้เลยครับ)</p>
+            </div>
+            <div class="button-group">
+                <button class="btn-secondary" onclick="goToStep(2)">← ย้อนกลับ</button>
+                <button class="btn-action" onclick="goToStep(4)">... (ไปต่อ)</button>
+            </div>
+        </div>
+
+        <!-- ขั้นที่ 4: หน้าสุดท้าย -->
         <div id="step-4" class="hidden">
             <div class="sorry-text">ขอบคุณที่เปิดอ่านจนจบนะ 💖</div>
-            <p style="color: #57606a; margin-bottom: 24px;">(สามารถพิมพ์ข้อความอื่นๆ เพิ่มเติมตรงนี้ได้ตามต้องการ)</p>
+            <p style="color: #57606a; margin-bottom: 24px;">(สามารถพิมพ์ข้อความสรุปเพิ่มเติมตรงนี้ได้)</p>
             <div class="button-group">
-                <button class="btn-secondary" onclick="goToStep(3)">← ย้อนกลับ</button>
+                <button class="btn-secondary" onclick="goToStep(2)">← ย้อนกลับไปเลือกหัวข้อ</button>
             </div>
         </div>
     </div>
@@ -153,6 +170,7 @@
             document.getElementById('step-2').classList.add('hidden');
             document.getElementById('step-3').classList.add('hidden');
             document.getElementById('step-4').classList.add('hidden');
+            document.getElementById('step-5').classList.add('hidden');
 
             document.getElementById('step-' + stepNumber).classList.remove('hidden');
         }
