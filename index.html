@@ -144,11 +144,12 @@
             <h1 class="title" onclick="goToStep(2)">พี่ปอมอยากบอกว่า</h1>
         </div>
 
-        <!-- ขั้นที่ 2: พี่ขอโทษ (เพิ่มปุ่มย้อนกลับไปหน้าแรก) -->
+        <!-- ขั้นที่ 2: พี่ขอโทษ -->
         <div id="step-2" class="step-container hidden">
             <div class="sorry-text">พี่ขอโทษ</div>
             <div class="button-group">
-                <button class="btn-action" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
+                <!-- เพิ่มการขยับไปทางขวาด้วย style inline -->
+                <button class="btn-action" style="padding-left: 34px; padding-right: 22px; margin-left: 8px;" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
                 <button class="btn-action" onclick="goToStep(5)">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ</button>
             </div>
             <div class="button-group" style="margin-top: 16px;">
@@ -186,7 +187,7 @@
         <!-- ขั้นที่ 4: หน้าสุดท้าย -->
         <div id="step-4" class="step-container hidden">
             <div class="sorry-text">ขอบคุณที่เปิดอ่านจนจบนะ 💖</div>
-            <p style="color: #57606a; margin-bottom: 28px; font-size: 1.05rem;">(สามารถพิมพ์ข้อความสรุปเพิ่มเติมตรงนี้ได้)</p>
+            <p style="color: #57606a; margin-bottom: 28px; font-size: 1.05rem;">ถึงเว็บนี้พี่อาจจะไม่ได้ทำเองทั้งหมดต้องให้เพื่อนช่วยบ้างแต่พี่ก็ตั้งใจทำให้น้อง ถ้าน้องไม่อยากคุยกับพี่แล้วพี่ก็จะไม่รบกวนน้องอีก</p>
             <div class="button-group">
                 <button class="btn-secondary" onclick="goToStep(2)">← ย้อนกลับไปเลือกหัวข้อ</button>
             </div>
