@@ -4,33 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>พี่ปอมอยากบอกว่า</title>
+    <!-- โหลดฟอนต์ Kanit จาก Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
         }
 
         body {
-            background-color: #f8f9fa;
-            color: #1f2328;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            /* พื้นหลังไล่เฉดสีพาสเทลละมุน */
+            background: linear-gradient(135deg, #fef9d7 0%, #d2e7ff 100%);
+            color: #2c3e50;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            overflow-x: hidden;
         }
 
+        /* การ์ดสไตล์กระจกฝ้าโปร่งแสง (Glassmorphism) */
         .card {
-            background-color: #ffffff;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             text-align: center;
-            max-width: 680px;
+            max-width: 650px;
             width: 100%;
             padding: 48px 36px;
-            border: 1px solid #e1e4e8;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(140, 149, 159, 0.12);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
         }
 
         .step-container {
@@ -39,43 +49,65 @@
             align-items: center;
             justify-content: center;
             width: 100%;
+            animation: fadeInSlide 0.5s ease-in-out forwards;
         }
 
+        /* เอฟเฟกต์ค่อยๆ แสดงเมื่อเปลี่ยนหน้า */
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ชื่อเรื่องหน้าแรก */
         .title {
-            color: #0969da;
-            font-size: 1.8rem;
+            color: #4a6fa5;
+            font-size: 2.2rem;
             margin: 0;
             cursor: pointer;
-            font-weight: 700;
+            font-weight: 600;
             display: inline-block;
-            transition: transform 0.2s ease, color 0.2s ease;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(74, 111, 165, 0.15);
         }
 
         .title:hover {
-            color: #0a58ca;
-            transform: scale(1.04);
-            text-decoration: underline;
+            color: #3b5998;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(74, 111, 165, 0.25);
         }
 
         .sorry-text {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #24292f;
-            margin-bottom: 28px;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 24px;
             line-height: 1.3;
         }
 
+        /* กล่องเนื้อหาข้อความ */
         .details-text {
             width: 100%;
             text-align: left;
             font-size: 1.05rem;
-            line-height: 1.85;
-            color: #484f58;
-            margin: 12px 0 32px 0;
-            background-color: #f6f8fa;
+            line-height: 1.9;
+            color: #4a5568;
+            margin: 12px 0 28px 0;
+            background-color: #ffffff;
             padding: 28px;
-            border-radius: 12px;
-            border: 1px solid #eaeef2;
+            border-radius: 16px;
+            border-left: 5px solid #4a6fa5;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            font-weight: 300;
         }
 
         .details-text p {
@@ -90,45 +122,48 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             flex-wrap: wrap;
             width: 100%;
         }
 
+        /* ปุ่มหลักทรงแคปซูล */
         .btn-action {
             padding: 12px 28px;
-            background-color: #0969da;
+            background: linear-gradient(135deg, #5b86e5 0%, #36d1dc 100%);
             color: #ffffff;
             border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            box-shadow: 0 2px 6px rgba(9, 105, 218, 0.2);
-            transition: all 0.2s ease;
-        }
-
-        .btn-action:hover {
-            background-color: #0a58ca;
-            box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            padding: 12px 28px;
-            background-color: #f6f8fa;
-            color: #24292f;
-            border: 1px solid #d0d7de;
-            border-radius: 8px;
+            border-radius: 50px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 500;
-            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(91, 134, 229, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-action:hover {
+            box-shadow: 0 6px 20px rgba(91, 134, 229, 0.45);
+            transform: translateY(-2px);
+        }
+
+        /* ปุ่มย้อนกลับ */
+        .btn-secondary {
+            padding: 12px 28px;
+            background-color: #ffffff;
+            color: #5a6578;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 400;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
         }
 
         .btn-secondary:hover {
-            background-color: #eff1f3;
-            border-color: #b0b8c1;
+            background-color: #f8fafc;
+            color: #2d3748;
+            border-color: #cbd5e1;
             transform: translateY(-1px);
         }
 
@@ -141,19 +176,18 @@
     <div class="card">
         <!-- ขั้นที่ 1: หน้าแรก -->
         <div id="step-1" class="step-container">
-            <h1 class="title" onclick="goToStep(2)">พี่ปอมอยากบอกว่า</h1>
+            <h1 class="title" onclick="goToStep(2)">✨ พี่ปอมอยากบอกว่า ✨</h1>
         </div>
 
         <!-- ขั้นที่ 2: พี่ขอโทษ -->
         <div id="step-2" class="step-container hidden">
-            <div class="sorry-text">พี่ขอโทษ</div>
+            <div class="sorry-text">พี่ขอโทษนะ...</div>
             <div class="button-group">
-                <!-- เพิ่มการขยับไปทางขวาด้วย style inline -->
-                <button class="btn-action" style="padding-left: 34px; padding-right: 22px; margin-left: 8px;" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
+                <button class="btn-action" onclick="goToStep(3)">เรื่องที่พี่รู้สึกผิด</button>
                 <button class="btn-action" onclick="goToStep(5)">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ</button>
             </div>
-            <div class="button-group" style="margin-top: 16px;">
-                <button class="btn-secondary" onclick="goToStep(1)">ย้อนกลับ</button>
+            <div class="button-group" style="margin-top: 20px;">
+                <button class="btn-secondary" onclick="goToStep(1)">ย้อนกลับหน้าแรก</button>
             </div>
         </div>
 
@@ -161,10 +195,10 @@
         <div id="step-3" class="step-container hidden">
             <div class="sorry-text">เรื่องที่พี่รู้สึกผิด...😔</div>
             <div class="details-text">
-                <p>1. ขอโทษที่วันนั้นพี่พิมพ์ไปว่าพี่คิดถึงน้องส่วนตัวสำหรับพี่ก็คิดว่าพี่รีบไปเอง ในความรู้สึกของพี่ไม่ได้รีบพี่ก็อยากจะคุยกับน้องเพราะพี่กะชอบ พี่ก็อยากลองคุยดูด้วยให้พี่คุยนานพี่ก็คุยได้ ถ้าไปด้วยกันไม่ได้จริงๆก็พร้อมที่จะทำใจ</p>
-                <p>2. ขอโทษที่พี่อาจจะทักบ่อยในบางครั้ง เพราะพี่ก็อยากจะคุยกับน้องพี่จัดการเวลาเรียนของตัวเองให้มีเวลาได้คุยกับน้องบ้าง</p>
-                <p>3. และก็พี่ก็ขอโทษที่ไม่ได้ทักหาน้องหรือบอกเองว่าพี่ทำไรอยู่ อยู่ไหน พี่ไม่ค่อยได้จับโทรศัพท์บ้างเพราะพี่ไม่ค่อยได้คุยกับใครในเชิงอยากพัฒนาความสัมพันธ์แบบน้องมานานอาจจะไม่ถูกใจน้องบ้าง</p>
-                <p>พี่ขอโทษทุกอย่างที่พี่ทำน้องไม่พอใจหรืออาจจะทำให้ไม่อยากคุยกับพี่</p>
+                <p>1. ขอโทษที่วันนั้นพี่พิมพ์ไปว่าพี่คิดถึงน้อง ส่วนตัวสำหรับพี่ก็คิดว่าพี่รีบไปเอง ในความรู้สึกของพี่ไม่ได้รีบพี่ก็อยากจะคุยกับน้องเพราะพี่ก็ชอบ พี่ก็อยากลองคุยดูด้วย ให้พี่คุยนานพี่ก็คุยได้ ถ้าไปด้วยกันไม่ได้จริงๆ ก็พร้อมที่จะทำใจ</p>
+                <p>2. ขอโทษที่พี่อาจจะทักบ่อยในบางครั้ง เพราะพี่ก็อยากจะคุยกับน้อง พี่จัดการเวลาเรียนของตัวเองให้มีเวลาได้คุยกับน้องบ้าง</p>
+                <p>3. และก็พี่ก็ขอโทษที่ไม่ได้ทักหาน้องหรือบอกเองว่าพี่ทำไรอยู่ อยู่ไหน พี่ไม่ค่อยได้จับโทรศัพท์บ้างเพราะพี่ไม่ค่อยได้คุยกับใครในเชิงอยากพัฒนาความสัมพันธ์แบบน้องมานาน อาจจะไม่ถูกใจน้องบ้าง</p>
+                <p style="font-weight: 500; color: #3182ce; margin-top: 16px;">พี่ขอโทษทุกอย่างที่พี่ทำน้องไม่พอใจ หรืออาจจะทำให้ไม่อยากคุยกับพี่นะ</p>
             </div>
             <div class="button-group">
                 <button class="btn-secondary" onclick="goToStep(2)">ย้อนกลับ</button>
@@ -174,9 +208,9 @@
 
         <!-- ขั้นที่ 5: สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ -->
         <div id="step-5" class="step-container hidden">
-            <div class="sorry-text">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ...</div>
+            <div class="sorry-text">สิ่งที่พี่รู้สึกไม่ค่อยสบายใจ...😔</div>
             <div class="details-text">
-                <p>• พี่ไม่ค่อยสบายใจที่น้องไม่ได้คุยกับพี่แบบช่วงแรกและพี่ก็ไม่ค่อยสบายใจที่พี่พิมพ์แบบนั้นแล้วน้องอาจจะมองพี่เปลี่ยนไป พี่ไม่อยากให้น้องคิดว่าพี่เป้นพวกฟีลอาหวังหรือแบบแค่อยากมาคุยกับน้องเฉยๆ</p>
+                <p>• พี่ไม่ค่อยสบายใจที่น้องไม่ได้คุยกับพี่แบบช่วงแรก และพี่ก็ไม่ค่อยสบายใจที่พี่พิมพ์แบบนั้นแล้วน้องอาจจะมองพี่เปลี่ยนไป พี่ไม่อยากให้น้องคิดว่าพี่เป็นพวกฟีลอาหวัง หรือแบบแค่อยากมาคุยกับน้องเฉยๆ😔</p>
             </div>
             <div class="button-group">
                 <button class="btn-secondary" onclick="goToStep(2)">ย้อนกลับ</button>
@@ -187,7 +221,7 @@
         <!-- ขั้นที่ 4: หน้าสุดท้าย -->
         <div id="step-4" class="step-container hidden">
             <div class="sorry-text">ขอบคุณที่เปิดอ่านจนจบนะ 💖</div>
-            <p style="color: #57606a; margin-bottom: 28px; font-size: 1.05rem;">ถึงเว็บนี้พี่อาจจะไม่ได้ทำเองทั้งหมดต้องให้เพื่อนช่วยบ้างแต่พี่ก็ตั้งใจทำให้น้อง ถ้าน้องไม่อยากคุยกับพี่แล้วพี่ก็จะไม่รบกวนน้องอีก😔😔</p>
+            <p style="color: #718096; margin-bottom: 28px; font-size: 1.05rem;">ถึงเว็บนี้พี่อาจจะไม่ได้ทำขึ้นมาเองทั้งหมดให้เพื่อนช่วยบ้างแต่พี่ตั้งใจทำให้น้องอ่านจริงๆ</p>
             <div class="button-group">
                 <button class="btn-secondary" onclick="goToStep(2)">← ย้อนกลับไปเลือกหัวข้อ</button>
             </div>
