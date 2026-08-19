@@ -69,7 +69,7 @@
             display: inline-block;
             transition: all 0.3s ease;
             letter-spacing: 0.5px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: rgba(255, 255, 255, 0.6);
             border-radius: 30px;
             box-shadow: 0 4px 15px rgba(74, 111, 165, 0.15);
@@ -160,7 +160,7 @@
         }
 
         /* ปุ่มควบคุมเพลงมุมขวาบน */
-        .music-btn {
+        .music-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -169,14 +169,23 @@
             padding: 8px 16px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            font-size: 0.85rem;
+            color: #4a5568;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease;
             z-index: 100;
         }
 
-        .music-btn:hover {
+        .music-toggle:hover {
             transform: scale(1.05);
+        }
+
+        /* ซ่อนเครื่องเล่น YouTube ไม่ให้เกะกะสายตา */
+        #youtube-player {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+            pointer-events: none;
         }
 
         .hidden {
@@ -186,16 +195,16 @@
 </head>
 <body>
 
-    <!-- เล่นเพลงวนซ้ำ (เปลี่ยนชื่อไฟล์เพลงตรง src="song.mp3") -->
-    <audio id="bgm" src="https://open.spotify.com/track/22Hss9mYx32zL6UHhl0kYq?si=9cd8360511f44b2d" loop></audio>
+    <!-- พื้นที่ซ่อน YouTube Player -->
+    <div id="youtube-player"></div>
 
-    <!-- ปุ่มเปิด/ปิดเพลงมุมขวาบน -->
-    <button class="music-btn" onclick="toggleMusic()">🎵 เปิด/ปิดเพลง</button>
+    <!-- ปุ่มเปิด/ปิดเสียงเพลงมุมขวาบน -->
+    <button class="music-toggle" onclick="toggleAudio()">🎵 เปิด/ปิดเพลง</button>
 
     <div class="card">
-        <!-- ขั้นที่ 1: หน้าแรก (เมื่อกดจะเริ่มเล่นเพลงทันที) -->
+        <!-- ขั้นที่ 1: หน้าแรก -->
         <div id="step-1" class="step-container">
-            <h1 class="title" onclick="startExperience()">✨ พี่ปอมอยากบอกว่า ✨</h1>
+            <h1 class="title" onclick="startWithMusic()">✨ พี่ปอมอยากบอกว่า ✨</h1>
         </div>
 
         <!-- ขั้นที่ 2: พี่ขอโทษ -->
@@ -240,27 +249,48 @@
         <!-- ขั้นที่ 4: หน้าสุดท้าย -->
         <div id="step-4" class="step-container hidden">
             <div class="sorry-text">ขอบคุณที่เปิดอ่านจนจบนะ 💖</div>
-            <p style="color: #718096; margin-bottom: 28px; font-size: 1.05rem;">พี่ตั้งใจเขียนขึ้นมาจริงๆ นะครับ</p>
+            <p style="color: #718096; margin-bottom: 28px; font-size: 1.05rem;">ถึงเว็บนี้พี่จะไม่ได้เขียยนขึ้นมาเองทั้งหมดให้เพื่อนช่วยบ้างแต่พี่ก็ตั้งใจที่จะเขียนขึ้นมาให้น้องจริงๆ</p>
             <div class="button-group">
                 <button class="btn-secondary" onclick="goToStep(2)">← ย้อนกลับไปเลือกหัวข้อ</button>
             </div>
         </div>
     </div>
 
+    <!-- โหลด YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        const audio = document.getElementById('bgm');
+        let player;
 
-        function startExperience() {
-            // เล่นเพลงทันทีที่กดเข้าหน้าแรก
-            audio.play().catch(e => console.log("Audio play deferred:", e));
+        // สั่งสร้างเครื่องเล่น YouTube จาก ID คลิป VZGt8DFyX6A
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'VZGt8DFyX6A',
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'VZGt8DFyX6A'
+                }
+            });
+        }
+
+        function startWithMusic() {
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
             goToStep(2);
         }
 
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play();
+        function toggleAudio() {
+            if (!player || typeof player.getPlayerState !== 'function') return;
+            
+            const state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
             } else {
-                audio.pause();
+                player.playVideo();
             }
         }
 
