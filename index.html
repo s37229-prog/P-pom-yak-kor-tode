@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>พี่ปอมอยากบอกว่า</title>
     <style>
+        /* สไตล์พื้นหลังกระดาษขาว */
         body {
-            background: linear-gradient(135deg, #0d1117, #161b22);
-            color: #f0f6fc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff; /* กระดาษขาว */
+            color: #1f2328; /* สีข้อความเข้ม */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,24 +17,93 @@
             margin: 0;
             padding: 20px;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 380px;
+
+        /* คอนเทนเนอร์หลัก */
+        .content-container {
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
+            max-width: 400px;
+            padding: 30px;
+            border: 1px solid #d0d7de; /* เส้นขอบบางๆ เหมือนขอบกระดาษ */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* เงาบางๆ */
         }
-        h1 { color: #58a6ff; font-size: 1.3rem; margin-bottom: 16px; }
-        p { font-size: 1.05rem; line-height: 1.6; color: #c9d1d9; }
+
+        /* สไตล์คำว่า "พี่ปอมอยากบอกว่า" (คลิกได้) */
+        .title {
+            color: #0969da; /* สีน้ำเงินสไตล์ GitHub */
+            font-size: 1.5rem;
+            margin: 0;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.2s ease, transform 0.1s ease;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .title:hover {
+            color: #0a58ca;
+            transform: scale(1.05); /* ย่อขยายเวลาโฮเวอร์ */
+            text-decoration: underline;
+        }
+
+        /* สไตล์ข้อความเต็ม (เริ่มต้นซ่อน) */
+        #main-message {
+            display: none;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 25px;
+        }
+
+        #p-quote {
+            color: #57606a;
+            border-left: 3px solid #d0d7de;
+            padding-left: 10px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        /* สไตล์ปุ่มหรือคำ "去 weiter" (ไปต่อ) */
+        .btn-continue {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #0969da; /* สีน้ำเงิน */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-continue:hover {
+            background-color: #0a58ca;
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>💬 พี่ปอมอยากบอกว่า...</h1>
-        <p>ไม่ว่าจะเหนื่อยหรือเจอเรื่องหนักแค่ไหน เก่งมากแล้วที่ผ่านมันมาได้ พักผ่อนเยอะๆ นะครับ! 💖</p>
+    <div class="content-container">
+        <!-- หน้าเริ่มต้น: มีแค่คำว่า "พี่ปอมอยากบอกว่า" และคลิกได้ -->
+        <div id="initial-screen">
+            <h1 class="title" onclick="showNextMessage()">พี่ปอมอยากบอกว่า</h1>
+        </div>
+
+        <!-- หน้าถัดไป: ข้อความเต็ม (เริ่มต้นซ่อน) -->
+        <div id="main-message">
+            <p id="p-quote">ไม่ว่าจะเหนื่อยหรือเจอเรื่องหนักแค่ไหน เก่งมากแล้วที่ผ่านมันมาได้ พักผ่อนเยอะๆ นะครับ!</p>
+            <p>💖 อย่าลืมใจดีกับตัวเองนะ</p>
+            <!-- ปุ่ม "ไปต่อ" -->
+            <button class="btn-continue" onclick="alert('... (คุณได้ไปต่อแล้ว!)')">... (ไปต่อ)</button>
+        </div>
     </div>
+
+    <script>
+        // ฟังก์ชันเพื่อสลับข้อความ
+        function showNextMessage() {
+            // ซ่อนหน้าเริ่มต้น
+            document.getElementById('initial-screen').style.display = 'none';
+            // แสดงหน้าข้อความเต็ม
+            document.getElementById('main-message').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
